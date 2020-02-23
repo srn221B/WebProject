@@ -1,0 +1,35 @@
+{% extends "common/_base.html" %}
+
+{% block title %}アカウント情報{% endblock %}
+{% block h1_title %}Account Information{% endblock %}
+{% load static %}
+{% block extra_head %}
+    <link rel="stylesheet" type="text/css" href="{% static 'registration.css' %}">
+    <script type="text/javascript">
+    $(function(){
+        var loader = $('.loader-wrap');
+        $(window).on('load',function(){
+            loader.fadeOut();
+        });
+        setTimeout(function(){
+            loader.fadeOut();
+		},3000);
+    });
+    </script>
+{% endblock %}
+
+{% block content %}
+    <div class="loader-wrap">
+        <div class="loader">Loading...</div>
+    </div>
+    <p style="margin:0px 3px 10px 3px;"><a href="{% url 'home' %}">< Home</a></p>
+    <h5>アカウント情報</h5>
+    <div class="post_form">
+        <label>User Name</label>　{% if user.username == "" %}設定されていません{% else %}{{ user.username }}{% endif %}<br>
+        <label>Email</label>　{% if user.email == "" %}設定されていません{% else %}{{ user.email }}{% endif %}<br>
+        <label>Last Name</label>　{% if user.last_name == "" %}設定されていません{% else %}{{ user.last_name }}{% endif %}<br>
+        <label>First Name</label>　{% if user.first_name == "" %}設定されていません{% else %}{{ user.first_name }}{% endif %}<br>
+    <br>
+    <p><a href="{% url 'accounts:password_change' %}">パスワードの変更はこちらから</a></p>
+    </div>
+{% endblock %}

@@ -1,0 +1,21 @@
+from django.contrib.auth import login,logout
+from django.urls import reverse_lazy
+from django.views.generic import CreateView
+
+
+from .forms import SignupForm
+
+
+#Signup function
+class SignupView(CreateView):
+    form_class = SignupForm
+    success_url = reverse_lazy('home')
+    template_name = 'registration/signup.html'
+
+    def form_valid(self, form):
+        # self.objectにsave()されたユーザーオブジェクトが格納
+        valid = super().form_valid(form)
+        login(self.request,self.object)
+        return valid
+
+

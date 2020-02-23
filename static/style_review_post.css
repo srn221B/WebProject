@@ -1,0 +1,22 @@
+.container-fluid{
+}
+#h5_title{
+    text-align: center;
+    margin:25px;
+}
+h5{
+    font-weight: bold;
+    color:#D87575;
+}
+.btn-secondary{
+    font-family: 'Sacramento', cursive;
+    font-size:130%;
+    width:200px;
+}
+.font-change{
+    font-family: 'Sacramento', cursive;
+    font-size:130%;
+}
+form{
+    text-align: center;
+}

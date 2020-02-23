@@ -1,0 +1,50 @@
+{% extends "common/_base.html" %}
+{% block title %}ログイン{% endblock %}
+{% block h1_title %}Login page{% endblock %}
+{% load static %}
+{% block extra_head %}
+    <link rel="stylesheet" type="text/css" href="{% static 'registration.css' %}">
+{% endblock %}
+
+{% block content %}
+    <h5>ログイン画面</h5>
+    <div class="post_form">
+    {% if form.errors %}
+        <small class="text-muted"><p>ユーザーID、パスワードが一致しません</p></small>
+        {% else %}
+        <small class="text-muted"><p>登録情報を入力してください</p></small>
+    {% endif %}
+    <form method="post">
+        {% csrf_token %}
+        <div class="form-group">
+            <label>Username</label>
+            {{ form.username }}
+        </div>
+        <br>
+        <div class="form-group">
+            <label>Password</label>
+            {{ form.password }}
+            <small class="text-muted">{{ form.password.errors }}</small>
+        </div>
+        <br>
+        <button type="submit" class="btn btn-secondary btn-block">Login</button>
+    </form>
+    </div>
+    <br><br>
+    <h6>外部ソーシャルログインサービスを利用</h6>
+    <div class="btn-toolbar">
+        <div class="btn-group">
+            <button type="button" class="btn">
+                <a href="{% url 'accounts:github_login' %}"><i class="fab fa-github fa-2x icon"></i></a>
+            </button>
+            <button type="button" class="btn">
+                <a href="{% url 'accounts:google_login' %}"><i class="fab fa-google fa-2x icon"></i></a>
+            </button>
+            <button type="button" class="btn">
+                <a href="{% url 'accounts:twitter_login' %}"><i class="fab fa-twitter fa-2x icon"></i></a>
+            </button>
+        </div>
+    </div>
+    <br>
+    <p><a href="{% url 'accounts:account_signup' %}">新規ユーザー登録はこちらから</a></p>
+{% endblock %}

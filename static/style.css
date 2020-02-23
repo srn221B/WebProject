@@ -1,0 +1,146 @@
+@import url('https://fonts.googleapis.com/css?family=Sacramento');
+
+/*共通*/
+header{
+    position: fixed;
+    height: 80px;
+    top:0;
+    z-index: 10;
+    width:100%;
+}
+html,
+body{
+    height: 100%;
+    width:100%;
+    margin:0;
+    padding:0;
+    background: white;
+    font-family:"Yu Gothic", "游ゴシック", YuGothic, "游ゴシック体";
+}
+.container-fluid{
+    padding-top:100px;
+}
+.navbar{
+    background-color:#D87575;
+    box-shadow: 0 1px 4px;
+    font-family: 'Sacramento', cursive;
+}
+.navbar-brand{
+    width:40%;
+    color:white;
+    font-size:180%;
+    font-weight: bold;
+}
+.navbar-text{
+    font-size:200%;
+}
+a,a:hover,a:visited{
+    text-decoration: initial;
+    color:#3A405A;
+}
+img{
+    max-width: 100%;
+}
+
+/* device */
+@media screen and (max-width:780px){
+    .navbar{
+        text-align: center;
+    }
+    .navbar-brand{
+        width:100%;
+        font-size:130%;
+    }
+    .navbar-text{
+        font-size:150%;
+        display:block;
+        margin: 0 auto;
+    }
+}
+
+/*
+*loader
+*/
+
+
+.loader-wrap {
+	position: fixed;
+	display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    background: #fff;
+}
+.loader,
+.loader:before,
+.loader:after {
+  border-radius: 50%;
+  width: 2.5em;
+  height: 2.5em;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+    animation-duration: 5s;
+  -webkit-animation: load7 1.8s infinite ease-in-out;
+  animation: load7 1.8s infinite ease-in-out;
+}
+.loader {
+  color: #D87575;
+  font-size: 10px;
+  margin: 80px auto;
+  position: relative;
+  text-indent: -9999em;
+  -webkit-transform: translateZ(0);
+  -ms-transform: translateZ(0);
+  transform: translateZ(0);
+  -webkit-animation-delay: -0.16s;
+  animation-delay: -0.16s;
+}
+.loader:before,
+.loader:after {
+  content: '';
+  position: absolute;
+  top: 0;
+}
+.loader:before {
+  left: -3.5em;
+  -webkit-animation-delay: -0.32s;
+  animation-delay: -0.32s;
+}
+.loader:after {
+  left: 3.5em;
+}
+@-webkit-keyframes load7 {
+  0%,
+  80%,
+  100% {
+    box-shadow: 0 2.5em 0 -1.3em;
+  }
+  40% {
+    box-shadow: 0 2.5em 0 0;
+  }
+}
+@keyframes load7 {
+  0%,
+  80%,
+  100% {
+    box-shadow: 0 2.5em 0 -1.3em;
+  }
+  40% {
+    box-shadow: 0 2.5em 0 0;
+  }
+}
+
+.no-login{
+    top:500px;
+    text-align: left;
+    color:#3A405A;
+}
+.no-login a{
+    color:#3A405A;
+}
+@media screen and (max-width:780px){
+    .no-login{
+        top:50%;
+    }
+}

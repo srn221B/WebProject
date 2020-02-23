@@ -1,0 +1,45 @@
+{% extends "common/_base.html" %}
+
+{% block title %}{{submit_text}}{% endblock %}
+{% block h1_title %}Review Post{% endblock %}
+
+{% load static %}
+{% block extra_head %}
+    <link rel="stylesheet" type="text/css" href="{% static 'style_review_post.css' %}">
+    <script type="text/javascript">
+    $(function(){
+        var loader = $('.loader-wrap');
+        $(window).on('load',function(){
+            loader.fadeOut();
+        });
+        setTimeout(function(){
+            loader.fadeOut();
+		},3000);
+    });
+    </script>
+{% endblock %}
+
+{% block content %}
+    <div class="loader-wrap">
+        <div class="loader">Loading...</div>
+    </div>
+    <p style="margin:0px 3px 10px 3px;"><a href="{% url 'main:home' %}">< Reccomend_Note</a></p>
+    <div id="h5_title">
+    <h5>{{submit_text}}画面</h5>
+    <small class="text-muted"><p>{{submit_text}}情報を入力してください</p></small>
+    </div>
+    <form action="{% url 'main:review_post_done' %}" method="post">
+        {% csrf_token %}
+        <p><span class="font-change">Title</span><br>{{ contents }}</p>
+        <p><span class="font-change">Your review is</span><br>
+    <input type="hidden" value="{{ contents }}" name="contents">
+    {%  for review_button in form.review %}
+        {{ review_button }}
+        <input type="hidden" value="{{ contents }}" name="contents">
+    {% endfor %}
+    </p>
+    <br>
+    <button type="submit" class="btn btn-secondary">Submit</button>
+    </form>
+
+{% endblock %}

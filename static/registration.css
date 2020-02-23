@@ -1,0 +1,42 @@
+.container-fluid{
+    padding-top:100px;
+}
+h5{
+    text-align: center;
+    font-weight: bold;
+    color:#D87575;
+    margin:25px;
+}
+.post_form{
+    text-align: center;
+}
+button{
+    display:block;
+    margin: 0 auto;
+}
+label{
+   font-family: 'Sacramento', cursive;
+    font-size:130%;
+}
+.form-group{
+    display:block;
+    margin: 0 auto;
+    text-align: center;
+    width:400px;
+}
+.btn-secondary{
+    font-family: 'Sacramento', cursive;
+    font-size:130%;
+    width:200px;
+}
+/* device */
+@media screen and (max-width:780px){
+    .form-group{
+        max-width: 100%;
+    }
+    .btn-secondary {
+        max-width: 100%;
+    }
+}
+
+

@@ -1,0 +1,66 @@
+{% extends 'common/_base2.html' %}
+{% load static %}
+{% block extra_head %}
+    <link rel="stylesheet" type="text/css" href="{% static 'style_home.css' %}">
+    <script type="text/javascript">
+    $(function(){
+        var loader = $('.loader-wrap');
+        $(window).on('load',function(){
+            loader.fadeOut();
+        });
+        setTimeout(function(){
+            loader.fadeOut();
+		},3000);
+    });
+    </script>
+{% endblock %}
+{% block title %}ホーム{% endblock %}
+{% block h1_title %}Home{% endblock %}
+{%  block content %}
+    {% if user.is_authenticated %}
+        <div class="loader-wrap">
+            <div class="loader">Loading...</div>
+        </div>
+        <div class="box">
+            <div class="box_contain">
+                <h1>Welcome to<br>  <i class="fas fa-video"></i> Watching the moview!</h1>
+                <div class="star"><i class="far fa-star"></i></div>
+                <br>
+                <div id="star_wrap1" style="float:right;">
+                    <div class="star"><i class="far fa-star"></i></div>
+                </div>
+                <div class="clear_both"></div>
+                <div class="top_image">
+                    <img src="{% static 'home2.png' %}" id="top_img">
+                        <p><span id="review_post">レビューを投稿することで</span>
+                        <br><span id="review_post2">あなたに合うおすすめ作品を紹介</span>
+                        <br><span id="review_post3"><a href="{% url 'main:home' %}">Review Note</a></span></p>
+                </div>
+                <div class="account-wrap">
+                    <div class="account">
+                    <span>
+                        {{ user.username }}でログイン中<br>
+                        <a href="{% url 'users:account_information' %}">アカウント情報</a><br>
+                        <a href="{% url 'users:account_logout' %}">ログアウト</a></p>
+                    </span>
+                    </div>
+                </div>
+                <div class="clear_both"></div>
+                <div id="star_wrap2">
+                    <div class="star"><i class="far fa-star"></i></div>
+                </div>
+                <div class="clear_both"></div>
+            </div>
+        </div>
+        <div class="containe">
+        <br><br><br><br>
+            <div class="star" style="text-align: center"><i class="far fa-star"></i></div>
+
+        </div>
+    {% else %}
+        <div class="no-login">
+        <br><br><br><br><br>
+            <p><a href="{% url 'users:account_login' %}">こちらからログインしてください</a></p>
+        </div>
+    {% endif %}
+{% endblock %}

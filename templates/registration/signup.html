@@ -1,0 +1,48 @@
+{% extends "common/_base.html" %}
+
+{% block title %}ユーザー登録{% endblock %}
+{% block h1_title %}Signup page{% endblock %}
+{% load static %}
+{% block extra_head %}
+    <link rel="stylesheet" type="text/css" href="{% static 'registration.css' %}">
+{% endblock %}
+
+{% block content %}
+    <p style="margin:0px 3px 10px 3px;"><a href="{% url 'users:account_login' %}">< Login</a></p>
+    <h5>ユーザー登録画面</h5>
+    <div class="post_form">
+        {% if form.errors %}
+            {% for field in form %}
+                {% for error in field.errors %}
+                    <small class="text-muted"><p>{{ error }}</p></small>
+                {% endfor %}
+            {% endfor %}
+        {% else %}
+            <small class="text-muted"><p>登録内容を入力してください。</p></small>
+        {% endif %}
+        <form method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                <label>UserName</label>
+                {{ form.username }}
+            </div>
+            <br>
+            <div class="form-group">
+                <label>Email address</label>
+                {{ form.email }}
+            </div>
+            <br>
+            <div class="form-group">
+                <label>Password</label>
+                {{ form.password1 }}
+            </div>
+            <br>
+            <div class="form-group">
+                <label>Password Confirm</label>
+                {{ form.password2 }}
+            </div>
+            <br>
+            <button type="submit" class="btn btn-secondary btn-block">Signup</button>
+        </form>
+    </div>
+{% endblock %}

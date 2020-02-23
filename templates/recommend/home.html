@@ -1,0 +1,98 @@
+
+{% extends 'common/_base.html' %}
+{% load static %}
+{% block extra_head %}
+    <link rel="stylesheet" type="text/css" href="{% static 'style_main.css' %}">
+    <script type="text/javascript">
+    $(function(){
+    $('.js-modal-open').on('click',function(){
+        var id = $(this).data('id');
+        $('.js-modal[data-id="modal' + id + '"]').fadeIn();
+        return false;
+    });
+    $('.js-modal-close').on('click',function(){
+        $('.js-modal').fadeOut();
+        return false;
+    });
+    });
+    $(function(){
+        var loader = $('.loader-wrap');
+        $(window).on('load',function(){
+            loader.fadeOut();
+        });
+        setTimeout(function(){
+            loader.fadeOut();
+		},3000);
+    });
+    </script>
+{% endblock %}
+{% block title %}Review Note{% endblock %}
+{% block h1_title %}Review Note{% endblock %}
+{%  block content %}
+    {% if user.is_authenticated %}
+        <div class="loader-wrap">
+            <div class="loader">Loading...</div>
+        </div>
+        <p style="margin:0px 3px 10px 3px;"><a href="{% url 'home' %}">< Home</a></p>
+        <p>作品をクリックして１〜５段階で評価してください。</p>
+        <p>本・アニメ・映画などの媒体，及び１期２期などシーズンに関わらず総合的にみた評価をつけてください。</p>
+        <p class="Diagonal_lines Recomend">おすすめ作品</p>
+        <div class="d-flex">
+            {% for reviews in review_list %}
+                {% if forloop.counter == 31 %}
+                    </div>
+                    <br>
+                    <p class="Diagonal_lines2 Recomend">作品</p>
+                    <div class="d-flex">
+                {% endif %}
+                <div class="contents_page {% if reviews.4 == 1 %}Diagonal_lines recommend_moview{% else %}moview{% endif %}">
+                    <a  class="js-modal-open" data-id="{{ forloop.counter }}" href="" >
+                        {% if reviews.3 == None %}
+                            <div class="review">No watched</div>
+                        {% else %}
+                            <div class="review"><i class="far fa-heart"></i> {{ reviews.3 }}</div>
+                        {% endif %}
+                        <img src='{{ MEDIA_URL }}{{ reviews.1 }}' width="100px" height="130px"/>
+                    </a>
+                </div>
+                <div class="modal js-modal" data-id="modal{{ forloop.counter }}">
+                    <div class="modal__bg js-modal-close"></div>
+                    <div class="modal__content">
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <img src='{{ MEDIA_URL }}{{ reviews.1 }}' width="200px" height="250px"/>
+                            </div>
+                            <div class="col-sm-8">
+                                <h5>{{ reviews.0 }}</h5>
+                                <p>{{ reviews.2 }}</p>
+                                {% if reviews.3 == None %}
+                                    <form action="{% url 'main:review_post' %}" method="post">
+                                        {% csrf_token %}
+                                        <input type="hidden" value="{{ reviews.0 }}" name="contents">
+                                        <input type="hidden" value="{{ user.username }}" name="user_id">
+                                        <input type="submit" class="btn btn-secondary btn-block" value="Not reviewed">
+                                    </form>
+                                {% else %}
+                                    <form action="{% url 'main:review_post' %}" method="post">
+                                        {% csrf_token %}
+                                        <input type="hidden" value="{{ reviews.0 }}" name="contents">
+                                        <input type="hidden" value="{{ user.username }}" name="user_id">
+                                        <input type="submit"  class="btn btn-secondary btn-block" value="Your review is {{ reviews.3 }}">
+                                    </form>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="js-modal-close">
+                            <p  class="js-modal-close-link"><a href="">CLOSE</a></p>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        <hr>
+    {% else %}
+        <div class="no-login">
+            <p><a href="{% url 'users:account_login' %}">こちらからログインしてください</a></p>
+        </div>
+    {% endif %}
+{% endblock %}
